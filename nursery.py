@@ -26,6 +26,17 @@ class Pets(Animal):
     def __init__(self, name, age, voice):
         super().__init__(name, age, voice)
         self.place_of_life = "Проживает дома с человеком"
+
+class Packs(Animal):
+    def __init__(self, name, age, voice):
+        super().__init__(name, age, voice)
+        self.place_of_life = "Проживает в загоне (дворе)"
+
+class Cat(Pets, Animal):
+    skills = ['Играть с клубком', 'Ловить мышей', 'Ходить на задних лапах']
+    def __init__(self, name, age, voice):
+        super().__init__(name, age, voice)
+        self.skills = []
     
     
     
@@ -34,9 +45,8 @@ class Pets(Animal):
 
 
 
-nursery_valentin = Nursery();
-nursery_valentin.info()
 
-barsik = Pets('Барсик', 12, 'Мяу')
+
+barsik = Cat('Барсик', 12, 'Мяу')
 barsik.say()
 print(barsik.place_of_life)
