@@ -41,6 +41,15 @@ class Animal:
     
     def display_info(self):
         return f'Кличка: {self.name}, возраст: {self.age}'
+    
+
+    def add_skills(self, skill):
+        print(f'Список возможных для обучения навыков: \n {self.skills}')
+        if skill not in self.skills: print ('В нашем приемнике этому не учат!!!')
+        elif skill in self.learn_skills: print ('Ваш питомец уже обучен этому навыку!')
+        else:
+            self.learn_skills.append(skill)
+            print(f"Ваш питомец успешно освоил навык {skill}")
 
         
 
@@ -55,46 +64,51 @@ class Packs(Animal):
         self.place_of_life = "Проживает в загоне (дворе)"
 
 class Cat(Pets, Animal):
-    skills = ['Играть с клубком', 'Ловить мышей', 'Ходить на задних лапах']
+    
     def __init__(self, name, age, voice):
         super().__init__(name, age, voice)
-        self.skills = []
+        self.skills = ['Играть с клубком', 'Ловить мышей', 'Ходить на задних лапах']
+        self.learn_skills = []
     
     def display_info(self):
         print (super().display_info() + ' Кошка')
 
 class Dog(Pets, Animal):
-    skills = ['Выполнять команды', 'Бегать за палкой', 'Подавать голос']
+    
     def __init__(self, name, age, voice):
         super().__init__(name, age, voice)
-        self.skills = []
+        self.skills = ['Выполнять команды', 'Бегать за палкой', 'Подавать голос']
+        self.learn_skills = []
     
     def display_info(self):
         print (super().display_info() + ' Собака')
 
 class Humster(Pets, Animal):
-    skills = ['Бегать в колесе', 'Стучать лапками', 'Грызть палочку']
+    
     def __init__(self, name, age, voice):
         super().__init__(name, age, voice)
-        self.skills = []  
+        self.skills = ['Бегать в колесе', 'Стучать лапками', 'Грызть палочку']
+        self.learn_skills = []  
     
     def display_info(self):
         print (super().display_info() + ' Хомяк')
     
 class Horse(Packs, Animal):
-    skills = ['Катать упряжку', 'Бегать галопом', 'Прыгать через барьер']
+    
     def __init__(self, name, age, voice):
         super().__init__(name, age, voice)
-        self.skills = []  
+        self.skills = ['Катать упряжку', 'Бегать галопом', 'Прыгать через барьер']
+        self.learn_skills = []  
     
     def display_info(self):
         print (super().display_info() + ' Лошадь')
     
 class Donkey(Packs, Animal):
-    skills = ['Катать на себе ребенка', 'Ходить за морковкой', 'Бегать по арене']
+    
     def __init__(self, name, age, voice):
         super().__init__(name, age, voice)
-        self.skills = []
+        self.skills = ['Катать на себе ребенка', 'Ходить за морковкой', 'Бегать по арене']
+        self.learn_skills = []
 
     def display_info(self):
         print (super().display_info() + 'Ослик')  
@@ -111,3 +125,6 @@ class Donkey(Packs, Animal):
 dog = Animal("Бобик", 12, 'Иго-го')
 dog = Nursery.categorize(dog)
 print(dog.display_info())
+print(dog.learn_skills)
+dog.add_skills("Катать упряжку")
+dog.add_skills("Катать упряжку")
