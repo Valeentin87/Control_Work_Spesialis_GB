@@ -9,6 +9,23 @@ class Nursery:
     def info(self):
         print(f'Питомник: {self.name_nursery},  количество свободных мест:  {self.number_of_seats}')
 
+    @staticmethod
+    def categorize(animal):
+        
+        name, age, voice = animal.name, animal.age, animal.voice
+        if animal.voice == "Мяу": 
+            animal = Cat(name, age, voice)
+        elif animal.voice == "Гав": 
+            animal = Dog(name, age, voice)
+        elif animal.voice == "ФхзФхз": 
+            animal = Humster(name, age, voice)
+        elif animal.voice == "Иго-го": 
+            animal = Horse(name, age, voice)
+        elif animal.voice == "Иа-иа": 
+            animal = Donkey(name, age, voice)
+        else: print('Мы не можем оформить Ваше животное в питомник')
+        return animal
+
 
 
 class Animal:
@@ -21,6 +38,11 @@ class Animal:
     def say(self):
         '''позволяет узнать какой звук издает животное'''
         print(f'Я издаю звук - {self.voice}')
+    
+    def display_info(self):
+        return f'Кличка: {self.name}, возраст: {self.age}'
+
+        
 
 class Pets(Animal):
     def __init__(self, name, age, voice):
@@ -38,15 +60,54 @@ class Cat(Pets, Animal):
         super().__init__(name, age, voice)
         self.skills = []
     
+    def display_info(self):
+        print (super().display_info() + ' Кошка')
+
+class Dog(Pets, Animal):
+    skills = ['Выполнять команды', 'Бегать за палкой', 'Подавать голос']
+    def __init__(self, name, age, voice):
+        super().__init__(name, age, voice)
+        self.skills = []
     
+    def display_info(self):
+        print (super().display_info() + ' Собака')
+
+class Humster(Pets, Animal):
+    skills = ['Бегать в колесе', 'Стучать лапками', 'Грызть палочку']
+    def __init__(self, name, age, voice):
+        super().__init__(name, age, voice)
+        self.skills = []  
     
+    def display_info(self):
+        print (super().display_info() + ' Хомяк')
     
+class Horse(Packs, Animal):
+    skills = ['Катать упряжку', 'Бегать галопом', 'Прыгать через барьер']
+    def __init__(self, name, age, voice):
+        super().__init__(name, age, voice)
+        self.skills = []  
+    
+    def display_info(self):
+        print (super().display_info() + ' Лошадь')
+    
+class Donkey(Packs, Animal):
+    skills = ['Катать на себе ребенка', 'Ходить за морковкой', 'Бегать по арене']
+    def __init__(self, name, age, voice):
+        super().__init__(name, age, voice)
+        self.skills = []
+
+    def display_info(self):
+        print (super().display_info() + 'Ослик')  
 
 
 
 
 
+# barsik = Cat('Барсик', 12, 'Мяу')
+# barsik.say()
+# print(barsik.place_of_life)
+# barsik.display_info()
 
-barsik = Cat('Барсик', 12, 'Мяу')
-barsik.say()
-print(barsik.place_of_life)
+dog = Animal("Бобик", 12, 'Иго-го')
+dog = Nursery.categorize(dog)
+print(dog.display_info())
