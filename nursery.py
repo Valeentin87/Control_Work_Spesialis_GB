@@ -11,6 +11,12 @@ def list_to_string(list_skills):
             str_skills = str_skills + skill + ','
     return str_skills[:-1]
 
+def string_to_list(string_skills):
+    '''переводит строку с умениями в список'''
+    ls_skills = []
+    if len(string_skills) != 0:
+        ls_skills = string_skills.split(sep = ',')
+    return ls_skills
 
 class Nursery:
     '''Класс Nursery - питомник имеет в атрибутах название питомника name_nursery
@@ -76,13 +82,14 @@ class Animal:
         return f'Кличка: {self.name}, возраст: {self.age}'
     
 
-    def add_skills(self, skill):
+    def add_skills(self, number_animal, skill):
         '''позволяет добавить навык питомцу, если он имеется в списке базовых для него'''
         print(f'Список возможных для обучения навыков: \n {self.skills}')
         if skill not in self.skills: print ('В нашем приемнике этому не учат!!!')
         elif skill in self.learn_skills: print ('Ваш питомец уже обучен этому навыку!')
         else:
-            self.learn_skills.append(skill)
+            last_skill = list_to_string(self.learn_skills)
+            add_to_db_skill(skill, last_skill, self.name, self.age)
             print(f"Ваш питомец успешно освоил навык {skill}")
 
     def display_skills(self):
@@ -161,4 +168,4 @@ nursery_val.info()
 
 #add_animal = Nursery.categorize(Animal("Понька", 12, "Иа-иа"))
 #print(list_to_string(add_animal.learn_skills))
-#nursery_val.add_animal("Леопольд", 8, "Мяу")
+print(string_to_list("Играть с клубком, Ловить мышей"))

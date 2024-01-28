@@ -23,6 +23,21 @@ def count_animals():
     close_db(db, cursor)
     return count_rows[0]
 
+def add_to_db_skill(name_skill, last_skill, id_pets):
+    '''добавляет новое умение питомцу к уже существующим'''
+    db_1, cursor_1 = open_db()
+    result_skill = last_skill + "," + name_skill
+    query = '''UPDATE nursery SET skills = %s WHERE id_animal = %s;'''
+    try:
+        cursor_1.execute(query,(result_skill, id_pets))
+        db_1.commit()
+    except Exception:
+        print('Ошибка добавления умений для питомца...')
+        db_1.rollback()
+    finally:
+        close_db(db_1, cursor_1)
+
+
 def add_to_db_animal(name, age, skills, type):
     '''добавляет нового питомца в базу данных nursery'''
     db_1, cursor_1 = open_db()
