@@ -1,6 +1,11 @@
+from db_connector import *
+
+# busy = count_animals()
+# print(busy)
+
 class Nursery:
     '''Класс Nursery - питомник имеет в атрибутах название питомника name_nursery
-    и количество свободных мест number_of_seats'''
+    и количество мест (вместимость) number_of_seats'''
 
     def __init__(self):
         self.name_nursery = "Cheerful farm"
@@ -8,7 +13,8 @@ class Nursery:
         self.list_animals = []
     
     def info(self):
-        print(f'Питомник: {self.name_nursery},  количество свободных мест:  {self.number_of_seats}')
+        busy_places = count_animals()
+        print(f'Питомник: {self.name_nursery},  количество свободных мест:  {self.number_of_seats - busy_places}')
 
     def add_animal(self, name, age, voice):
         if self.number_of_seats > 0:
@@ -134,22 +140,4 @@ class Donkey(Packs, Animal):
         print (super().display_info() + 'Ослик')  
 
 nursery_val = Nursery()
-nursery_val.add_animal('Барсик', 3, 'Мяу')
-nursery_val.add_animal('Боб', 5, 'Гав')
-nursery_val.add_animal('Стеша', 8, 'Иго-го')
-print(nursery_val.list_animals)
-
-
-
-# barsik = Cat('Барсик', 12, 'Мяу')
-# barsik.say()
-# print(barsik.place_of_life)
-# barsik.display_info()
-
-# dog = Animal("Бобик", 12, 'Иго-го')
-# dog = Nursery.categorize(dog)
-# print(dog.display_info())
-# print(dog.learn_skills)
-# dog.add_skills("Катать упряжку")
-# dog.add_skills('Бегать галопом')
-# dog.display_skills()
+nursery_val.info()
