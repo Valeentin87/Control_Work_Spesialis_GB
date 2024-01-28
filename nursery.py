@@ -5,9 +5,19 @@ class Nursery:
     def __init__(self):
         self.name_nursery = "Cheerful farm"
         self.number_of_seats = 30
+        self.list_animals = []
     
     def info(self):
         print(f'Питомник: {self.name_nursery},  количество свободных мест:  {self.number_of_seats}')
+
+    def add_animal(self, name, age, voice):
+        if self.number_of_seats > 0:
+            new_animal = Animal(name, age, voice)
+            add_animal = Nursery.categorize(new_animal)
+            self.list_animals.append(add_animal)
+        else: print('Извините, питомник переполнен!!!')
+
+
 
     @staticmethod
     def categorize(animal):
@@ -44,12 +54,22 @@ class Animal:
     
 
     def add_skills(self, skill):
+        '''позволяет добавить навык питомцу, если он имеется в списке базовых для него'''
         print(f'Список возможных для обучения навыков: \n {self.skills}')
         if skill not in self.skills: print ('В нашем приемнике этому не учат!!!')
         elif skill in self.learn_skills: print ('Ваш питомец уже обучен этому навыку!')
         else:
             self.learn_skills.append(skill)
             print(f"Ваш питомец успешно освоил навык {skill}")
+
+    def display_skills(self):
+        '''демонстрирует каким навыкам уже обучен питомец'''
+        self.display_info()
+        print('Ваш питомец обучен следующим навыкам:')
+        for skill in self.learn_skills:
+            print(skill)
+
+
 
         
 
@@ -113,7 +133,11 @@ class Donkey(Packs, Animal):
     def display_info(self):
         print (super().display_info() + 'Ослик')  
 
-
+nursery_val = Nursery()
+nursery_val.add_animal('Барсик', 3, 'Мяу')
+nursery_val.add_animal('Боб', 5, 'Гав')
+nursery_val.add_animal('Стеша', 8, 'Иго-го')
+print(nursery_val.list_animals)
 
 
 
@@ -122,9 +146,10 @@ class Donkey(Packs, Animal):
 # print(barsik.place_of_life)
 # barsik.display_info()
 
-dog = Animal("Бобик", 12, 'Иго-го')
-dog = Nursery.categorize(dog)
-print(dog.display_info())
-print(dog.learn_skills)
-dog.add_skills("Катать упряжку")
-dog.add_skills("Катать упряжку")
+# dog = Animal("Бобик", 12, 'Иго-го')
+# dog = Nursery.categorize(dog)
+# print(dog.display_info())
+# print(dog.learn_skills)
+# dog.add_skills("Катать упряжку")
+# dog.add_skills('Бегать галопом')
+# dog.display_skills()
