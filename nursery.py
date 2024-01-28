@@ -3,6 +3,15 @@ from db_connector import *
 # busy = count_animals()
 # print(busy)
 
+def list_to_string(list_skills):
+    '''переводит список умений в строку'''
+    str_skills = ' '
+    if len(list_skills) != 0:
+        for skill in list_skills:
+            str_skills = str_skills + skill + ','
+    return str_skills[:-1]
+
+
 class Nursery:
     '''Класс Nursery - питомник имеет в атрибутах название питомника name_nursery
     и количество мест (вместимость) number_of_seats'''
@@ -17,10 +26,12 @@ class Nursery:
         print(f'Питомник: {self.name_nursery},  количество свободных мест:  {self.number_of_seats - busy_places}')
 
     def add_animal(self, name, age, voice):
-        if self.number_of_seats > 0:
+        busy_places = count_animals()
+        if self.number_of_seats != busy_places:
             new_animal = Animal(name, age, voice)
             add_animal = Nursery.categorize(new_animal)
-            self.list_animals.append(add_animal)
+            #self.list_animals.append(add_animal)
+            add_to_db_animal(add_animal.name, add_animal.age, list_to_string(add_animal.learn_skills), add_animal.type)
         else: print('Извините, питомник переполнен!!!')
 
 
@@ -31,14 +42,19 @@ class Nursery:
         name, age, voice = animal.name, animal.age, animal.voice
         if animal.voice == "Мяу": 
             animal = Cat(name, age, voice)
+            animal.type = 'Кошка'
         elif animal.voice == "Гав": 
             animal = Dog(name, age, voice)
+            animal.type = 'Собака'
         elif animal.voice == "ФхзФхз": 
             animal = Humster(name, age, voice)
+            animal.type = 'Хомяк'
         elif animal.voice == "Иго-го": 
             animal = Horse(name, age, voice)
+            animal.type = 'Лошадь'
         elif animal.voice == "Иа-иа": 
             animal = Donkey(name, age, voice)
+            animal.type = 'Ослик'
         else: print('Мы не можем оформить Ваше животное в питомник')
         return animal
 
@@ -50,6 +66,7 @@ class Animal:
         self.name = name
         self.age = age
         self.voice = voice
+        self.type = None
     
     def say(self):
         '''позволяет узнать какой звук издает животное'''
@@ -97,7 +114,7 @@ class Cat(Pets, Animal):
         self.learn_skills = []
     
     def display_info(self):
-        print (super().display_info() + ' Кошка')
+        print (super().display_info() + ' ' + f'{self.type}')
 
 class Dog(Pets, Animal):
     
@@ -107,7 +124,7 @@ class Dog(Pets, Animal):
         self.learn_skills = []
     
     def display_info(self):
-        print (super().display_info() + ' Собака')
+        print (super().display_info() + ' ' + f'{self.type}')
 
 class Humster(Pets, Animal):
     
@@ -117,7 +134,7 @@ class Humster(Pets, Animal):
         self.learn_skills = []  
     
     def display_info(self):
-        print (super().display_info() + ' Хомяк')
+        print (super().display_info() + ' ' + f'{self.type}')
     
 class Horse(Packs, Animal):
     
@@ -127,7 +144,7 @@ class Horse(Packs, Animal):
         self.learn_skills = []  
     
     def display_info(self):
-        print (super().display_info() + ' Лошадь')
+        print (super().display_info() + ' ' + f'{self.type}')
     
 class Donkey(Packs, Animal):
     
@@ -137,7 +154,11 @@ class Donkey(Packs, Animal):
         self.learn_skills = []
 
     def display_info(self):
-        print (super().display_info() + 'Ослик')  
+        print (super().display_info() + ' ' + f'{self.type}')  
 
 nursery_val = Nursery()
 nursery_val.info()
+
+#add_animal = Nursery.categorize(Animal("Понька", 12, "Иа-иа"))
+#print(list_to_string(add_animal.learn_skills))
+#nursery_val.add_animal("Леопольд", 8, "Мяу")
