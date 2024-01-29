@@ -22,6 +22,8 @@ class Nursery:
     '''Класс Nursery - питомник имеет в атрибутах название питомника name_nursery
     и количество мест (вместимость) number_of_seats'''
 
+    
+
     def __init__(self):
         self.name_nursery = "Cheerful farm"
         self.number_of_seats = 30
@@ -29,7 +31,7 @@ class Nursery:
     
     def info(self):
         busy_places = count_animals()
-        print(f'Питомник: {self.name_nursery},  количество свободных мест:  {self.number_of_seats - busy_places}')
+        print(f'\t\t\t\t\t\t\t\t\t Питомник: {self.name_nursery},  количество свободных мест:  {self.number_of_seats - busy_places}')
 
     def add_animal(self, name, age, voice):
         busy_places = count_animals()
@@ -68,7 +70,11 @@ class Nursery:
     def display_all_animals():
         '''выводит в консоль всех питомцев из базы данных'''
         data = create_all_animals()
-        print(data)
+        print("{:>5}***{:>10}***{:>12}***{:>60}***{:>10}".format("Номер","Кличка","Возраст","Навыки","Класс"))
+        for item in data:
+            print("{:>5}***{:>10}***{:>12}***{:>60}***{:>10}".format(item[0],item[1],item[2],item[3],item[4]))
+
+        
 
 
 
@@ -191,6 +197,6 @@ Nursery.display_all_animals()
 
 #add_animal = Nursery.categorize(Animal("Понька", 12, "Иа-иа"))
 #print(list_to_string(add_animal.learn_skills))
-nursery_val.add_animal("Хамстер", 5, "ФхзФхз")
+#nursery_val.add_animal("Хамстер", 5, "ФхзФхз")
 
 #print(list_to_string(['Играть с клубком', 'Ловить мышей', 'Ходить на задних лапах']))

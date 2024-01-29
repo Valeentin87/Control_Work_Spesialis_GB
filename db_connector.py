@@ -19,7 +19,6 @@ def count_animals():
     query = '''SELECT COUNT(*) FROM nursery'''
     cursor.execute(query)
     count_rows = cursor.fetchone()
-    print(count_rows)
     close_db(db, cursor)
     return count_rows[0]
 
