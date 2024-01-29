@@ -43,28 +43,43 @@ class Nursery:
         else: print('Извините, питомник переполнен!!!')
 
 
+    @staticmethod
+    def create_skills_from_number(number):
+        '''возвращает умения питомца из вольера с указанным номером'''
+        data = create_all_animals()
+        for row in data:
+            if int(row[0]) == number:
+                return row[3]
+            continue    
 
     @staticmethod
     def categorize(animal):
         
         name, age, voice = animal.name, animal.age, animal.voice
-        if animal.voice == "Мяу": 
-            animal = Cat(name, age, voice)
-            animal.type = 'Кошка'
-        elif animal.voice == "Гав": 
-            animal = Dog(name, age, voice)
-            animal.type = 'Собака'
-        elif animal.voice == "ФхзФхз": 
-            animal = Humster(name, age, voice)
-            animal.type = 'Хомяк'
-        elif animal.voice == "Иго-го": 
-            animal = Horse(name, age, voice)
-            animal.type = 'Лошадь'
-        elif animal.voice == "Иа-иа": 
-            animal = Donkey(name, age, voice)
-            animal.type = 'Ослик'
-        else: print('Мы не можем оформить Ваше животное в питомник')
-        return animal
+        try:
+            if animal.voice == "Мяу": 
+                animal = Cat(name, age, voice)
+                animal.type = 'Кошка'
+            elif animal.voice == "Гав": 
+                animal = Dog(name, age, voice)
+                animal.type = 'Собака'
+            elif animal.voice == "ФхзФхз": 
+                animal = Humster(name, age, voice)
+                animal.type = 'Хомяк'
+            elif animal.voice == "Иго-го": 
+                animal = Horse(name, age, voice)
+                animal.type = 'Лошадь'
+            elif animal.voice == "Иа-иа": 
+                animal = Donkey(name, age, voice)
+                animal.type = 'Ослик'
+                
+            print(f'                                            ДОБАВЛЕН НОВЫЙ ПИТОМЕЦ ПО КЛИЧКЕ {animal.name} он - {animal.type}')
+            
+            return animal
+        except Exception:
+            print('Мы не можем оформить Ваше животное в питомник, он издает непонятные звуки')
+        
+        
     
     @staticmethod
     def display_all_animals():
@@ -103,27 +118,27 @@ class Animal:
                       'Ослик':  ['Катать на себе ребенка', 'Ходить за морковкой', 'Бегать по арене']}
         
         skills, type_animal = create_skills_from_db(number_animal)[0][0], create_skills_from_db(number_animal)[0][1]
-        print(skills)
+        
         print("-------------------------------------------------------")
         ls_skills = string_to_list(skills)
-        print(ls_skills)
-        print(f'Список возможных для обучения навыков: \n {map_skills[type_animal]}')
-        if skill not in map_skills[type_animal]: print ('В нашем приемнике этому не учат!!!')
-        elif skill in ls_skills: print ('Ваш питомец уже обучен этому навыку!')
+        
+        
+        if skill not in map_skills[type_animal]: print (                                            'В нашем приемнике этому не учат!!!')
+        elif skill in ls_skills: print (                                            'Ваш питомец уже обучен этому навыку!')
         else:
             last_skill = list_to_string(ls_skills)
-            print(last_skill)
+            
             add_to_db_skill(skill, last_skill, number_animal)
-            print(f"Ваш питомец успешно освоил навык {skill}")
+            print(f"                                            Ваш питомец успешно освоил навык {skill}")
     
     
 
     def display_skills(self):
         '''демонстрирует каким навыкам уже обучен питомец'''
         self.display_info()
-        print('Ваш питомец обучен следующим навыкам:')
+        print('                                         Ваш питомец обучен следующим навыкам:')
         for skill in self.learn_skills:
-            print(skill)
+            print("                                         ", skill)
 
 
 

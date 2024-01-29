@@ -78,6 +78,20 @@ def add_to_db_animal(name, age, skills, type):
     finally:
         close_db(db_1, cursor_1)
 
+def create_all_id_animal():
+    '''получает все номера заселенных вольеров питомника'''
+    db_1, cursor_1 = open_db()
+    query = '''SELECT id_animal FROM nursery'''
+    cursor_1.execute(query)
+    data = cursor_1.fetchall()
+    list_id_animal = []
+    print("                                        ", end = '')
+    for item in data:
+        list_id_animal.append(item[0])
+        print(item[0], end='****')
+    close_db(db_1, cursor_1)
+    return list_id_animal
+
 if __name__ == '__main__':
     a = (2, 3, 4)
     print(list(a))
