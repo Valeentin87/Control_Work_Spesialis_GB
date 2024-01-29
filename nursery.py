@@ -91,7 +91,10 @@ class Animal:
                       'Ослик':  ['Катать на себе ребенка', 'Ходить за морковкой', 'Бегать по арене']}
         
         skills, type_animal = create_animal_from_db(number_animal)[0][0], create_animal_from_db(number_animal)[0][1]
-        ls_skills = list(skills)
+        print(skills)
+        print("-------------------------------------------------------")
+        ls_skills = string_to_list(skills)
+        print(ls_skills)
         print(f'Список возможных для обучения навыков: \n {map_skills[type_animal]}')
         if skill not in map_skills[type_animal]: print ('В нашем приемнике этому не учат!!!')
         elif skill in ls_skills: print ('Ваш питомец уже обучен этому навыку!')
@@ -174,8 +177,9 @@ class Donkey(Packs, Animal):
 
 nursery_val = Nursery()
 nursery_val.info()
-Animal.add_skills(1, 'Играть с клубком')
+Animal.add_skills(8, 'Ходить на задних лапах')
 
 #add_animal = Nursery.categorize(Animal("Понька", 12, "Иа-иа"))
 #print(list_to_string(add_animal.learn_skills))
 
+#print(list_to_string(['Играть с клубком', 'Ловить мышей', 'Ходить на задних лапах']))
