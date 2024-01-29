@@ -63,6 +63,12 @@ class Nursery:
             animal.type = 'Ослик'
         else: print('Мы не можем оформить Ваше животное в питомник')
         return animal
+    
+    @staticmethod
+    def display_all_animals():
+        '''выводит в консоль всех питомцев из базы данных'''
+        data = create_all_animals()
+        print(data)
 
 
 
@@ -90,7 +96,7 @@ class Animal:
                       'Лошадь': ['Катать упряжку', 'Бегать галопом', 'Прыгать через барьер'],
                       'Ослик':  ['Катать на себе ребенка', 'Ходить за морковкой', 'Бегать по арене']}
         
-        skills, type_animal = create_animal_from_db(number_animal)[0][0], create_animal_from_db(number_animal)[0][1]
+        skills, type_animal = create_skills_from_db(number_animal)[0][0], create_skills_from_db(number_animal)[0][1]
         print(skills)
         print("-------------------------------------------------------")
         ls_skills = string_to_list(skills)
@@ -103,6 +109,8 @@ class Animal:
             print(last_skill)
             add_to_db_skill(skill, last_skill, number_animal)
             print(f"Ваш питомец успешно освоил навык {skill}")
+    
+    
 
     def display_skills(self):
         '''демонстрирует каким навыкам уже обучен питомец'''
@@ -177,9 +185,12 @@ class Donkey(Packs, Animal):
 
 nursery_val = Nursery()
 nursery_val.info()
-Animal.add_skills(8, 'Ходить на задних лапах')
+#Animal.add_skills(9, 'Бегать по арене')
+
+Nursery.display_all_animals()
 
 #add_animal = Nursery.categorize(Animal("Понька", 12, "Иа-иа"))
 #print(list_to_string(add_animal.learn_skills))
+nursery_val.add_animal("Хамстер", 5, "ФхзФхз")
 
 #print(list_to_string(['Играть с клубком', 'Ловить мышей', 'Ходить на задних лапах']))

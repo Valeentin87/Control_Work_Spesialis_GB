@@ -24,13 +24,14 @@ def count_animals():
     return count_rows[0]
 
 
-def create_animal_from_db(id_pets):
-    '''позволяет вернуть из строки базы данных экземпляр класса'''
+def create_skills_from_db(id_pets):
+    '''позволяет вернуть из строки базы данных тип питомца и его умения'''
     db_1, cursor_1 = open_db()
     query = '''SELECT skills, type FROM nursery WHERE id_animal = %s;'''
     try:
         cursor_1.execute(query,(id_pets,))
         data = cursor_1.fetchall()
+        print(data)
         return data
     except Exception:
         print('Ошибка извлечения данных...')
@@ -51,7 +52,18 @@ def add_to_db_skill(name_skill, last_skill, id_pets):
     finally:
         close_db(db_1, cursor_1)
 
-
+def create_all_animals():
+    '''получает массив кортежей из таблицы'''
+    db_1, cursor_1 = open_db()
+    query = '''SELECT * FROM nursery;'''
+    try:
+        cursor_1.execute(query)
+        data = cursor_1.fetchall()
+        return data
+    except Exception:
+        print('Ошибка чтения данных из таблицы...')
+    finally:
+        close_db(db_1, cursor_1)
 
 
 def add_to_db_animal(name, age, skills, type):
