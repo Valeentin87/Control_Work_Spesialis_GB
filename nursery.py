@@ -81,15 +81,24 @@ class Animal:
     def display_info(self):
         return f'Кличка: {self.name}, возраст: {self.age}'
     
-
-    def add_skills(self, number_animal, skill):
+    @staticmethod
+    def add_skills(number_animal, skill):
         '''позволяет добавить навык питомцу, если он имеется в списке базовых для него'''
-        print(f'Список возможных для обучения навыков: \n {self.skills}')
-        if skill not in self.skills: print ('В нашем приемнике этому не учат!!!')
-        elif skill in self.learn_skills: print ('Ваш питомец уже обучен этому навыку!')
+        map_skills = {'Кошка': ['Играть с клубком', 'Ловить мышей', 'Ходить на задних лапах'],
+                      'Собака': ['Выполнять команды', 'Бегать за палкой', 'Подавать голос'],
+                      'Хомяк': ['Бегать в колесе', 'Стучать лапками', 'Грызть палочку'],
+                      'Лошадь': ['Катать упряжку', 'Бегать галопом', 'Прыгать через барьер'],
+                      'Ослик':  ['Катать на себе ребенка', 'Ходить за морковкой', 'Бегать по арене']}
+        
+        skills, type_animal = create_animal_from_db(number_animal)[0][0], create_animal_from_db(number_animal)[0][1]
+        ls_skills = list(skills)
+        print(f'Список возможных для обучения навыков: \n {map_skills[type_animal]}')
+        if skill not in map_skills[type_animal]: print ('В нашем приемнике этому не учат!!!')
+        elif skill in ls_skills: print ('Ваш питомец уже обучен этому навыку!')
         else:
-            last_skill = list_to_string(self.learn_skills)
-            add_to_db_skill(skill, last_skill, self.name, self.age)
+            last_skill = list_to_string(ls_skills)
+            print(last_skill)
+            add_to_db_skill(skill, last_skill, number_animal)
             print(f"Ваш питомец успешно освоил навык {skill}")
 
     def display_skills(self):
@@ -165,7 +174,8 @@ class Donkey(Packs, Animal):
 
 nursery_val = Nursery()
 nursery_val.info()
+Animal.add_skills(1, 'Играть с клубком')
 
 #add_animal = Nursery.categorize(Animal("Понька", 12, "Иа-иа"))
 #print(list_to_string(add_animal.learn_skills))
-print(string_to_list("Играть с клубком, Ловить мышей"))
+
